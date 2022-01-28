@@ -1,0 +1,7 @@
+.backdrop {
+    backdrop-filter: blur(8px);
+}
+
+.heading {
+    color: lightgoldenrodyellow;
+}

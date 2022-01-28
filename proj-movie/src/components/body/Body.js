@@ -1,0 +1,127 @@
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { Card, Col, Container, Row } from "react-bootstrap";
+// import { useNavigate } from "react-router-dom";
+import Categories from "../categorieList/Categories";
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import { CircularProgress } from "@material-ui/core";
+import SingleMovieModal from "../singleMovie/SingleMovie";
+import Favourite from "../favourite/Favourite";
+import SingleMoviePage from "../singleMovie/SingleMovie";
+import Carousel from 'react-bootstrap/Carousel'
+import './Body.css'
+
+export const Context = createContext()
+
+const Body = () => {
+
+    const [mov, setMov] = useState([])
+    const [cat, setCat] = useState([])
+    const [catSel, setCatSel] = useState('Trending')
+    const [fav, setFav] = useState([])
+    const [isMovieClicked, setIsMovieClicked] = useState(true)
+    const [smd, setSmd] = useState(true)
+
+    useEffect(() => {
+        getMov()
+        getCat()
+    }, []);
+
+    const getMov = () => {
+        // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
+        axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e").then(res => {
+            console.log(res.data.results)
+            setMov(res.data.results)
+        }).catch(e => console.log(e))
+    }
+
+    const handleClick = (item) => {
+        // console.log(item)
+        setFav([...fav, item])
+    }
+    // console.log(fav)
+
+
+    const getCat = () => {
+        // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
+        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=17e786d5aa65a489c613aaca6427cd5e").then(res => {
+            // console.log(res.data)
+            setCat(res.data.genres)
+        }).catch(e => console.log(e))
+    }
+
+    const movieClicked = (item) => {
+        setSmd(item)
+        setIsMovieClicked(false)
+    }
+
+    return (
+        <Context.Provider value={{Data:[fav,setFav]}}>
+            <div >
+                <Container className="heading" fluid>
+                    <h1>{ catSel }</h1>
+                </Container>
+
+                {/* <Container className="justify-content-center">
+                    <Carousel fade>
+                        {mov.map((v) => {
+                            return (
+                                <Carousel.Item >
+                                    <img
+                                    className="d-block  w-100"
+                                        src={`https://image.tmdb.org/t/p/w300/${v.poster_path}`}
+                                    alt="First slide"
+                                    />
+                                    <Carousel.Caption>
+                                        <h3>{v.title || v.name}</h3>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            )
+
+                        })}
+                    </Carousel>
+                </Container> */}
+
+                <Row className="backdrop">
+                    {isMovieClicked ?
+                        <>
+                            <Col className="p-3" sm={3} >
+                                <Categories cat={cat} setCat={setCat} mov={mov} setMov={setMov} setCatSel={setCatSel} />
+                            </Col>
+                            <Col className="p-3" sm={9} >
+                                <Row xs={1} sm={2} md={4} >
+                                    {
+                                        mov.map((v, i) => {
+                                            return (
+                                                <Col key={v.id} >
+                                                    <Card style={{height: '450px'}} className="movieCard m-3">
+                                                        <Card.Img onClick={() => movieClicked(v.id)} style={{height: '300px'}} variant="top" src={`https://image.tmdb.org/t/p/w300/${v.poster_path}`} />
+                                                        <Row>
+                                                            <Col className='m-2'>
+                                                                <Card.Text><ThumbUpIcon  onClick={() => handleClick([v])} /></Card.Text>
+                                                            </Col>
+                                                            <Col className='m-2'>
+                                                                <CircularProgress variant="determinate" value={v.vote_average * 10} />
+                                                                <Card.Text>{v.vote_average}</Card.Text>
+                                                            </Col>
+                                                        </Row>
+                                                        <Card.Body>
+                                                            <Card.Title>{v.title || v.name}</Card.Title>
+                                                        </Card.Body>
+                                                    </Card>
+                                                </Col>
+                                            )
+                                        })
+                                    }
+                                </Row>
+                            </Col>
+                        </>
+                        :   <SingleMoviePage value={smd} />
+                    }
+                </Row>
+            </div>
+        </Context.Provider>
+    );
+}
+
+export default Body;
