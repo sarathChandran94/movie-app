@@ -21,18 +21,17 @@ const Categories = (props) => {
     return (
         <>
             <Tab.Container className="pt-3"  id="left-tabs-example" defaultActiveKey="first">
+                <ListGroup >
                             {
                                 props.cat.map((v,i) => {
                                     return (
-                                        <ListGroup >
                                             <ListGroup.Item action  onClick={() => clickHandle(v.id,v.name)} key={v.id} className="categoryButton m-1" variant="warning">
                                                 <h4>{v.name}</h4>
                                             </ListGroup.Item>
-                                        </ListGroup>
                                     )
                                 })
                             }
-
+                </ListGroup>
             </Tab.Container>
         </>
      );
