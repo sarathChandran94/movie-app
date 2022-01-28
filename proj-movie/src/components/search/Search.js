@@ -62,7 +62,7 @@ const Search = () => {
                     {/* <Button  style={{marginLeft: 10}} variant='contained'><SearchIcon /></Button> */}
                 </div>
                 <div>
-                    {!searchData ? <h3 >Nothing Found</h3> :
+                    {searchText === '' ? <h3 style={{color: 'grey'}}>Nothing Found</h3> :
                     <Row>
                             <Col className="p-3"  >
                                 <Row xs={1} sm={2} md={5} >
