@@ -9,62 +9,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate} from 'react-router-dom'
 import { Button, Col, Container, Row } from "react-bootstrap";
+import './SingleMovie.css'
 
-
-
-// const useStyles = makeStyles((theme) => ({
-//   modal: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   paper: {
-//     backgroundColor: theme.palette.background.paper,
-//     border: '2px solid #000',
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//   },
-// }));
-
-// export default function SingleMovieModal() {
-//   const classes = useStyles();
-//   const [open, setOpen] = React.useState(false);
-
-//   const handleOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <button type="button" onClick={handleOpen}>
-//         react-transition-group
-//       </button>
-//       <Modal
-//         aria-labelledby="transition-modal-title"
-//         aria-describedby="transition-modal-description"
-//         className={classes.modal}
-//         open={open}
-//         onClose={handleClose}
-//         closeAfterTransition
-//         BackdropComponent={Backdrop}
-//         BackdropProps={{
-//           timeout: 500,
-//         }}
-//       >
-//         <Fade in={open}>
-//           <div className={classes.paper}>
-//             <h2 id="transition-modal-title">Transition modal</h2>
-//             <p id="transition-modal-description">react-transition-group animates me.</p>
-//           </div>
-//         </Fade>
-//       </Modal>
-//     </div>
-//   );
-// }
 
 
 const SingleMoviePage = (props) => {
@@ -84,30 +30,29 @@ const SingleMoviePage = (props) => {
 
     return (
         <>
-            <Container className='p-5'>
-                <Button onClick={() => {navigate(0)}} variant='secondary'>Go Back</Button>
-                <Row >
-                    <Col className='border' sm={4}>
+            <Container >
+                <Button onClick={() => {navigate(0)}} variant='danger dark'>Go Back</Button>
+                <Row className='m-5 bg-white rounded' >
+                    <Col className='p-2 rounded shadow' sm={4}>
                         <img src={`https://image.tmdb.org/t/p/w300/${smd.poster_path}`} alt={smd.title}></img>
                     </Col>
-                    <Col className='border' sm={8}>
-                        content block
-                        <Row className='border'>
+                    <Col sm={8}>
+                        <Row className='p-2 border-bottom border-success shadow'>
                             <h1>{ smd.title }</h1>
                         </Row>
-                        <Row>
-                            <Col className='border'>
-                                <h5>{ smd.vote_average }</h5>
+                        <Row className='pt-3 border-bottom border-success shadow'>
+                            <Col>
                                 <CircularProgress variant="determinate" value={smd.vote_average * 10} />
+                                <h5>{ smd.vote_average }</h5>
                             </Col>
-                            <Col className='border'>
-                                <h5>{ smd.runtime } mins</h5>
+                            <Col className='align-items-center p-3'>
+                                <h5><span className='text-secondary'>Runtime: </span>{ smd.runtime } mins</h5>
                             </Col>
-                            <Col className='border'>
-                                <h5>Released on: { smd.release_date }</h5>
+                            <Col>
+                                <h5><span className='text-secondary'>Released on: </span>{ smd.release_date }</h5>
                             </Col>
                         </Row>
-                        <Row className='border'>
+                        <Row>
                              <h3><span style={{color:'orangered'}}>Plot: </span>{ smd.overview }</h3>
                         </Row>
                     </Col>

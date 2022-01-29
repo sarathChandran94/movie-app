@@ -5,11 +5,9 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import Categories from "../categorieList/Categories";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { CircularProgress } from "@material-ui/core";
-import SingleMovieModal from "../singleMovie/SingleMovie";
-import Favourite from "../favourite/Favourite";
 import SingleMoviePage from "../singleMovie/SingleMovie";
-import Carousel from 'react-bootstrap/Carousel'
 import './Body.css'
+import image from '../../assets/background.jpg'
 
 export const Context = createContext()
 
@@ -57,7 +55,12 @@ const Body = () => {
 
     return (
         <Context.Provider value={{Data:[fav,setFav]}}>
-            <div >
+            <div className='bodyBg'>
+                <div className='background'>
+                    {/* <img src={image} alt='' /> */}
+                </div>
+                <div className='foregorund'>
+
                 <Container className="heading" fluid>
                     <h1>{ catSel }</h1>
                 </Container>
@@ -119,6 +122,7 @@ const Body = () => {
                         :   <SingleMoviePage value={smd} />
                     }
                 </Row>
+                </div>
             </div>
         </Context.Provider>
     );

@@ -39,7 +39,11 @@ const Search = () => {
 
     return (
         <>
-            <div >
+            <div className='bodyBg'>
+                <div className='background'>
+
+                </div>
+                <div className='foreground'>
                 <Container className="heading">
                     <h1>Search</h1>
                 </Container>
@@ -109,6 +113,8 @@ const Search = () => {
 
                     }
                 </div>
+                </div>
+
             </div>
         </>
      );

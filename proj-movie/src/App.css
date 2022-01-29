@@ -1,18 +1,17 @@
 
 
 .App {
+    margin: 0;
   text-align: center;
   min-height: 100vh;
-  /* background-color: darkolivegreen; */
-  background-image: url('./assets/background.jpg')  ;
-  -webkit-background-size: cover;
+  background-color: darkolivegreen;
+  /* background-image: url('./assets/background.jpg')  ; */
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   background-color: rgba(0,0,0,.8);
-  background-blend-mode: darken;
-  /* filter: blur(8px);
-  -webkit-filter: blur(8px); */
+  background-blend-mode: darken; */
   /* background-repeat: repeat-y; */
 }
 

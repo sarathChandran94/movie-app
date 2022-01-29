@@ -1,14 +1,10 @@
 import axios from "axios"
-import { useContext, useState} from "react"
 import ListGroup from "react-bootstrap/ListGroup"
 import Tab from 'react-bootstrap/Tab';
-import { Context } from '../body/Body'
 import './Categories.css'
 
 const Categories = (props) => {
 
-    const { Data } = useContext(Context)
-    console.log(Data)
     const clickHandle = (id,name) => {
         console.log(id)
         props.setCatSel(name)
@@ -22,15 +18,15 @@ const Categories = (props) => {
         <>
             <Tab.Container className="pt-3"  id="left-tabs-example" defaultActiveKey="first">
                 <ListGroup >
-                            {
-                                props.cat.map((v,i) => {
-                                    return (
-                                            <ListGroup.Item action  onClick={() => clickHandle(v.id,v.name)} key={v.id} className="categoryButton m-1" variant="warning">
-                                                <h4>{v.name}</h4>
-                                            </ListGroup.Item>
-                                    )
-                                })
-                            }
+                    {
+                        props.cat.map((v,i) => {
+                            return (
+                                <ListGroup.Item action  onClick={() => clickHandle(v.id,v.name)} key={v.id} className="categoryButton m-1" variant="warning">
+                                    <h4>{v.name}</h4>
+                                </ListGroup.Item>
+                            )
+                        })
+                    }
                 </ListGroup>
             </Tab.Container>
         </>

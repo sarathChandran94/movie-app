@@ -10,6 +10,7 @@ import { useState } from "react";
 const MyNavbar = () => {
     const useStyles = makeStyles({
         root: {
+          color: 'white',
           width: "100%",
           position: "relative",
           top: 0,
@@ -30,9 +31,9 @@ const MyNavbar = () => {
             showLabels
             className={classes.root}
             >
-            <BottomNavigationAction style={{color:"white"}} value="home" onClick={()=>navigate('/')} label="Home" icon={<HomeIcon />} />
-            <BottomNavigationAction style={{color:"white"}} value="favourite" onClick={()=> navigate('/favourite')} label="Favorites" icon={<FavoriteIcon />} />
-            <BottomNavigationAction style={{color:"white"}} value="search" onClickCapture={()=>navigate('/search')} label="Search" icon={<Search />} />
+            <BottomNavigationAction className={classes.root} value="home" onClick={()=>navigate('/')} label="Home" icon={<HomeIcon />} />
+            <BottomNavigationAction className={classes.root} value="favourite" onClick={()=> navigate('favourite')} label="Favorites" icon={<FavoriteIcon />} />
+            <BottomNavigationAction className={classes.root} value="search" onClickCapture={()=>navigate('search')} label="Search" icon={<Search />} />
         </BottomNavigation>
     )
 }

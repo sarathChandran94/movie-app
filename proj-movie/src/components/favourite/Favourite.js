@@ -16,46 +16,51 @@ const Favourite = () => {
     console.log(fav)
     return (
         <>
-            <div>
-                <Container className='heading'>
-                    <h1 >Favourites</h1>
-                </Container>
-                {fav.length === 0  ? <h3 style={{color: 'grey'}}>No favourites yet...</h3> :
-                <Row xs={1} sm={2} md={3} >
-                {
-                    fav.map((v, i) => {
-                        return (
-                            <>
-                                <Col>
-                                    <Card style={{height: '300px'}} className="movieCard shadow shadow-sm">
-                                        <Card.Img style={{height: '150px'}} variant="top" src={v.poster_path} />
-                                        <Row>
-                                            <Col>
-                                                <Card.Text></Card.Text>
-                                            </Col>
-                                            <Col>
-                                                <Card.Text>Rating:{v.vote_average}</Card.Text>
-                                            </Col>
-                                        </Row>
-                                        <Card.Body>
-                                            <Card.Title>{v.title || v.name}</Card.Title>
+            <div className='bodyBg'>
+                <div className='background'>
+
+                </div>
+                <div className='foreground'>
+                    <Container className='heading'>
+                        <h1 >Favourites</h1>
+                    </Container>
+                    {fav.length === 0  ? <h3 style={{color: 'grey'}}>No favourites yet...</h3> :
+                    <Row xs={1} sm={2} md={3} >
+                    {
+                        fav.map((v, i) => {
+                            return (
+                                <>
+                                    <Col>
+                                        <Card style={{height: '300px'}} className="movieCard shadow shadow-sm">
+                                            <Card.Img style={{height: '150px'}} variant="top" src={v.poster_path} />
                                             <Row>
                                                 <Col>
-                                                    <Card.Text>{v.release_date }</Card.Text>
+                                                    <Card.Text></Card.Text>
                                                 </Col>
                                                 <Col>
-                                                    <Card.Text>Genre:</Card.Text>
+                                                    <Card.Text>Rating:{v.vote_average}</Card.Text>
                                                 </Col>
                                             </Row>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </>
-                        )
-                    })
-                }
-                </Row>
-                }
+                                            <Card.Body>
+                                                <Card.Title>{v.title || v.name}</Card.Title>
+                                                <Row>
+                                                    <Col>
+                                                        <Card.Text>{v.release_date }</Card.Text>
+                                                    </Col>
+                                                    <Col>
+                                                        <Card.Text>Genre:</Card.Text>
+                                                    </Col>
+                                                </Row>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                </>
+                            )
+                        })
+                    }
+                    </Row>
+                    }
+                </div>
             </div>
         </>
      );
