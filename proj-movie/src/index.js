@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter,Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter,Routes, Route } from 'react-router-dom';
 import Favourite from './components/favourite/Favourite';
 import Body from './components/body/Body';
 import Search from './components/search/Search'

@@ -1,17 +1,14 @@
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useContext, useState } from "react"
-import { Context } from '../body/Body'
+import { useState } from "react"
+
 import '../body/Body.css'
 import { Container } from 'react-bootstrap';
 
 
 const Favourite = () => {
-    // console.log(DataContext)
-    // const { Data } = useContext(Context)
-    // console.log(Data)
-    // const [fav, setFav] = Data
+
     const [fav, setFav] = useState([])
     console.log(fav)
     return (

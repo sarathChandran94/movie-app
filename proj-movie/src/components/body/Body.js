@@ -1,13 +1,12 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-// import { useNavigate } from "react-router-dom";
 import Categories from "../categorieList/Categories";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { CircularProgress } from "@material-ui/core";
 import SingleMoviePage from "../singleMovie/SingleMovie";
 import './Body.css'
-import image from '../../assets/background.jpg'
+
 
 export const Context = createContext()
 
@@ -57,34 +56,12 @@ const Body = () => {
         <Context.Provider value={{Data:[fav,setFav]}}>
             <div className='bodyBg'>
                 <div className='background'>
-                    {/* <img src={image} alt='' /> */}
                 </div>
                 <div className='foregorund'>
 
                 <Container className="heading" fluid>
                     <h1>{ catSel }</h1>
                 </Container>
-
-                {/* <Container className="justify-content-center">
-                    <Carousel fade>
-                        {mov.map((v) => {
-                            return (
-                                <Carousel.Item >
-                                    <img
-                                    className="d-block  w-100"
-                                        src={`https://image.tmdb.org/t/p/w300/${v.poster_path}`}
-                                    alt="First slide"
-                                    />
-                                    <Carousel.Caption>
-                                        <h3>{v.title || v.name}</h3>
-                                    </Carousel.Caption>
-                                </Carousel.Item>
-                            )
-
-                        })}
-                    </Carousel>
-                </Container> */}
-
                 <Row className="backdrop">
                     {isMovieClicked ?
                         <>

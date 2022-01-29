@@ -1,27 +1,14 @@
-import { Card, Col, Container, ProgressBar, Row } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import '../../App.css'
 import '../body/Body.css'
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button, CircularProgress, InputAdornment } from '@material-ui/core';
+import { CircularProgress, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     '& > *': {
-//       margin: theme.spacing(1),
-//       width: '300px',
-//       color: 'white',
-//       flex: 1
-//     },
-//   },
-// }));
-
 const Search = () => {
-    // const classes = useStyles();
     const [searchText, setSearchText] = useState('')
     const [searchData, setSearchData] = useState([])
 
@@ -63,7 +50,6 @@ const Search = () => {
                             ),
                           }}
                     />
-                    {/* <Button  style={{marginLeft: 10}} variant='contained'><SearchIcon /></Button> */}
                 </div>
                 <div>
                     {searchText === '' ? <h3 style={{color: 'grey'}}>Nothing Found</h3> :
@@ -71,7 +57,6 @@ const Search = () => {
                             <Col className="p-3"  >
                                 <Row xs={1} sm={2} md={5} >
                                     {
-                                        // isFav ? <Favourite /> :
                                         searchData.map((v, i) => {
                                             return (
                                                 <>
@@ -82,24 +67,14 @@ const Search = () => {
                                                         <Row>
                                                             <Col>
                                                                 <Card.Text>{v.release_date }</Card.Text>
-                                                                {/* <Card.Text><Button variant='warning'  onClick={() => handleClick([v])}>ThumbsUp</Button></Card.Text> */}
                                                             </Col>
                                                             <Col className='m-2'>
-                                                                    {/* <ProgressBar style={{ border: "2px" }} now={v.vote_average * 10} /> */}
                                                                     <CircularProgress variant="determinate" value={v.vote_average * 10} />
                                                                     <Card.Text>{v.vote_average}</Card.Text>
                                                             </Col>
                                                         </Row>
                                                         <Card.Body>
                                                             <Card.Title>{v.title || v.name}</Card.Title>
-                                                            {/* <Row>
-                                                                <Col>
-                                                                    <Card.Text>{v.release_date }</Card.Text>
-                                                                </Col>
-                                                                <Col>
-                                                                    <Card.Text>Genre:</Card.Text>
-                                                                </Col>
-                                                            </Row> */}
                                                         </Card.Body>
                                                     </Card>
                                                     </Col>

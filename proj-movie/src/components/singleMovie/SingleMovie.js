@@ -1,17 +1,9 @@
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Modal from '@material-ui/core/Modal';
-// import Backdrop from '@material-ui/core/Backdrop';
-// import Fade from '@material-ui/core/Fade';
-
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate} from 'react-router-dom'
 import { Button, Col, Container, Row } from "react-bootstrap";
 import './SingleMovie.css'
-
-
 
 const SingleMoviePage = (props) => {
     const [smd, setSmd] = useState([])
