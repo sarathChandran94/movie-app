@@ -13,10 +13,10 @@ const Favourite = () => {
     console.log(fav)
     return (
         <>
-            <div className='bodyBg'>
-                <div className='background'>
+            <div>
+                {/* <div className='background'>
 
-                </div>
+                </div> */}
                 <div className='foreground'>
                     <Container className='heading'>
                         <h1 >Favourites</h1>

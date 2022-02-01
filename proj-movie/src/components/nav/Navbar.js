@@ -1,4 +1,4 @@
-import { Link, useNavigate} from "react-router-dom"
+import { useNavigate} from "react-router-dom"
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import HomeIcon from '@material-ui/icons/Home';
