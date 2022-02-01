@@ -1,17 +1,26 @@
-const express = require("express")
-const app = new express
-const mongoose = require("mongoose")
-const cors = require("cors")
-app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const database = require("./db/conn");
+const users = require('./routes/userRoute');
 
-mongoose.connect("", (err) => {
-    if (err) { console.log(err) }
-    else console.log(`Connected to Mongoose`)
-})
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
+app.use('/users', users);
+
+require('dotenv').config({ path: './config/config.env' });
+
 
 app.get("/", (req, res) => {
     res.json({msg: "server"})
 })
 
-app.listen(5000,() => console.log(`Server online, port:5000`))
+
+
+const port = process.env.PORT ;
+app.listen(port, () => {
+    database;
+    console.log(`Connected to port: ${port}`);
+})

@@ -21,7 +21,7 @@
     object-fit: cover;
     z-index: -1;
     transform: translateZ(-50px) scale(15);
-    filter:blur(2px)
+    filter:blur(1px)
 }
 
 /* .backdrop {

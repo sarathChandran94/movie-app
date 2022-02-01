@@ -33,7 +33,7 @@ const MyNavbar = () => {
             >
             <BottomNavigationAction className={classes.root} value="home" onClick={()=>navigate('/')} label="Home" icon={<HomeIcon />} />
             <BottomNavigationAction className={classes.root} value="favourite" onClick={()=> navigate('favourite')} label="Favorites" icon={<FavoriteIcon />} />
-            <BottomNavigationAction className={classes.root} value="search" onClickCapture={()=>navigate('search')} label="Search" icon={<Search />} />
+            <BottomNavigationAction className={classes.root} value="search" onClick={()=>navigate('search')} label="Search" icon={<Search />} />
         </BottomNavigation>
     )
 }
