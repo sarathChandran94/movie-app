@@ -54,9 +54,9 @@ const Body = () => {
 
     return (
         <Context.Provider value={{Data:[fav,setFav]}}>
-            <div className='bodyBg'>
-                <div className='background'>
-                </div>
+            <div>
+                {/* <div className='background'>
+                </div> */}
                 <div className='foregorund'>
 
                 <Container className="heading" fluid>
