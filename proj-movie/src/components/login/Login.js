@@ -3,85 +3,77 @@ import Button from '@mui/material/Button'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useState } from "react";
-import { FormControl, useFormControl } from "@mui/material";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios'
 import './Login.css'
 
 const Login = () => {
-    const initialVal = {
-        email: '',
-        password: '',
-    }
-    const [formValues, setFormValues] = useState(initialVal);
-    const [isEmailValid, setIsEmailValid] = useState(false)
-    const [isPwValid, setIsPwValid] = useState(false)
-    const [emailHelper, setEmailHelper] = useState('')
-    const [pwHelper, setPwHelper] = useState('')
-    const [btnColor, setBtnColor] = useState()
-    // const { error } = useFormControl() || {}
+    // const initialVal = {
+    //     email: '',
+    //     password: '',
+    // }
+    // const [formValues, setFormValues] = useState(initialVal);
+    // const [isEmailInvalid, setIsEmailInvalid] = useState(false)
+    // const [isPwInvalid, setIsPwInvalid] = useState(false)
+    // const [emailHelper, setEmailHelper] = useState('')
+    // const [pwHelper, setPwHelper] = useState('')
+    // const [btnColor, setBtnColor] = useState()
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues({...formValues, [name]: value })
-        console.log(formValues)
-        if (formValues.email === '') {
-            setIsEmailValid(true)
-            setEmailHelper('Cannot be empty!')
-            setBtnColor('error')
-        } else if (formValues.password === '') {
-            setIsPwValid(true)
-            setPwHelper('Cannot be empty!')
-            setBtnColor('error')
-        } else {
-            setIsPwValid(false)
-            setIsEmailValid(false)
-            setBtnColor('success')
-            setEmailHelper('')
-            setPwHelper('')
+    // const handleChange = (e) => {
+    //     console.log(e.target)
+    //     const { id, value } = e.target;
+    //     setFormValues({ ...formValues, [id]: value })
+    //     console.log(formValues)
 
+    // }
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault()
+    //     setIsEmailInvalid(false)
+    //     setIsPwInvalid(false)
+    //     setEmailHelper('')
+    //     setPwHelper('')
+    //     setBtnColor('success')
+
+    //     if (formValues.email === '') {
+    //         setIsEmailInvalid(true)
+    //         setEmailHelper('Cannot be empty!')
+    //         setBtnColor('error')
+
+    //     }
+    //     if (formValues.password === '') {
+    //         setIsPwInvalid(true)
+    //         setPwHelper('Cannot be empty!')
+    //         setBtnColor('error')
+    //     }
+    //     if (formValues.email && formValues.password) {
+    //         console.log(formValues)
+    //     }
+    // }
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validationSchema: yup.object({
+            email: yup.string().email('Email address invalid!').required('Required'),
+            password: yup.string().required('Required'),
+        }),
+        onSubmit: values => {
+
+            console.log(values)
         }
-        // console.log(isValid)
-
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+    })
 
     return (
         <>
             <h1>Login Page</h1>
-            {/* <Container className='justify-content-center'>
-                <Card style={{width: '20rem'}} className=''>
-                    <Card.Header>
-                        <Card.Title>LOGIN</Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <Form className=''>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                                </Form.Text>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Check me out" />
-                            </Form.Group>
-                            <Button variant="primary" type="submit">
-                                LOGIN
-                            </Button>
-                        </Form>
-                    </Card.Body>
-                </Card>
-            </Container> */}
 
             <div className='formContainer'>
-                <Box
+                {/* <Box
+                onSubmit={handleSubmit}
                 bgcolor='white'
                 component="form"
                 sx={{
@@ -94,86 +86,57 @@ const Login = () => {
 
                         <TextField
                         required
-                        error={isEmailValid}
+                        error={isEmailInvalid}
                         onChange={handleChange}
                         helperText={emailHelper}
-                        id="outlined-email-input"
+                        id="email"
                         type='text'
                         label="Email"
-                        name="email"
-                        value={formValues.email}
                         />
-
+                </div>
+                <div>
 
                         <TextField
-                        error={isPwValid}
+                        required
+                        pattern = '/^[0-9]{5}$/'
+                        error={isPwInvalid}
                         onChange={handleChange}
                         helperText={pwHelper}
-                        id="outlined-password-input"
-                        label="Password"
-                        name="password"
+                        id="password"
                         type="password"
-                        value={formValues.password}
+                        label="Password"
                         />
 
                 </div>
-                    <Button onSubmit={handleSubmit} variant="contained" color={btnColor}>LOGIN</Button>
+                    <Button type='submit' variant="contained" color={btnColor}>LOGIN</Button>
+                </Box> */}
 
-                {/* <div>
-                    <TextField
-                    required
-                    id="standard-required"
-                    label="Required"
-                    defaultValue="Hello World"
-                    variant="standard"
-                    />
-                    <TextField
-                    disabled
-                    id="standard-disabled"
-                    label="Disabled"
-                    defaultValue="Hello World"
-                    variant="standard"
-                    />
-                    <TextField
-                    id="standard-password-input"
-                    label="Password"
-                    type="password"
-                    autoComplete="current-password"
-                    variant="standard"
-                    />
-                    <TextField
-                    id="standard-read-only-input"
-                    label="Read Only"
-                    defaultValue="Hello World"
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    variant="standard"
-                    />
-                    <TextField
-                    id="standard-number"
-                    label="Number"
-                    type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="standard"
-                    />
-                    <TextField
-                    id="standard-search"
-                    label="Search field"
-                    type="search"
-                    variant="standard"
-                    />
-                    <TextField
-                    id="standard-helperText"
-                    label="Helper text"
-                    defaultValue="Default Value"
-                    helperText="Some important text"
-                    variant="standard"
-                    />
-                </div> */}
-                </Box>
+
+                <form onSubmit={formik.handleSubmit}>
+                    <div>
+                        <input
+                            name="email"
+                            type="text"
+                            placeholder="Email"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
+                        />
+                    </div>
+                    {formik.touched.email && formik.errors.email ? <div>{ formik.errors.email }</div> : null}
+                    <div>
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                            />
+                    </div>
+                    {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                    <button type='submit'>LOGIN</button>
+                </form>
             </div>
         </>
     );

@@ -8,7 +8,7 @@ const users = require('./routes/userRoute');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-app.use('/users', users);
+app.use('/register', users);
 
 require('dotenv').config({ path: './config/config.env' });
 

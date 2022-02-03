@@ -1,7 +1,65 @@
+import { useFormik } from "formik";
+import * as yup from 'yup';
+import axios from 'axios'
+
 const Register = () => {
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+        },
+        validationSchema: yup.object({
+            username: yup.string().matches(/^[A-Za-z0-9]+$/, 'no special characters or spaces allowed!').required('Required'),
+            email: yup.string().email('Email address invalid!').required('Required'),
+            password: yup.string().required('Required'),
+        }),
+        onSubmit: values => {
+            axios.post('http://localhost:5000/register/newuser', values)
+                .then(res => console.log(res))
+                .catch(e => console.log(e))
+            console.log(values)
+        }
+    })
     return (
         <>
             <h1>Register page</h1>
+            <form onSubmit={formik.handleSubmit}>
+                    <div>
+                        <input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.username}
+                        />
+                    </div>
+                    {formik.touched.username && formik.errors.username ? <div style={{color: 'red'}}>{ formik.errors.username }</div> : null}
+                    <div>
+                        <input
+                            name="email"
+                            type="text"
+                            placeholder="Email"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
+                        />
+                    </div>
+                    {formik.touched.email && formik.errors.email ? <div>{ formik.errors.email }</div> : null}
+                    <div>
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                            />
+                    </div>
+                    {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                    <button type='submit'>SIGN UP</button>
+                </form>
         </>
     );
 }
