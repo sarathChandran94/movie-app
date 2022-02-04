@@ -7,9 +7,11 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
 import './Login.css'
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [message, setMessage] = useState('')
+    const navigate = useNavigate()
     // const initialVal = {
     //     email: '',
     //     password: '',
@@ -66,6 +68,13 @@ const Login = () => {
             axios.post('http://localhost:5000/register/login', values)
                 .then(res => {
                     setMessage(res.data.msg)
+                    console.log(res.data.user.role)
+                    if (res.data.user.role === 'Admin') {
+                        navigate('/admin')
+                    }
+                    if (res.data.user.role === 'User') {
+                        navigate('/')
+                    }
                 })
                 .catch(e => console.log(e))
             // console.log(values)
