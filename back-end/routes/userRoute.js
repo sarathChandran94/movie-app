@@ -50,4 +50,18 @@ router.post('/login', (req, res) => {
     })
 })
 
+
+router.get('/admin', (req, res) => {
+    user.find( (err, result) => {
+        if (result) {
+            res.send({ result })
+        }
+        else if (err) {
+            res.send({ err })
+        }
+    })
+})
+
+
+
 module.exports = router;
