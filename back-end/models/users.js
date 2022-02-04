@@ -5,8 +5,10 @@ const UserSchema = new Schema({
     username: String,
     email: String,
     password: String,
+    role: String,
+    joined: { type: Date,default: Date.now },
 })
 
-let user = mongoose.model('User', UserSchema);
+let users = mongoose.model('User', UserSchema);
 
-module.exports = user;
+module.exports = users;

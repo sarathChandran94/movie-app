@@ -1,7 +1,7 @@
-import { Card, Container, Form } from "react-bootstrap";
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+// import { Card, Container, Form } from "react-bootstrap";
+// import Button from '@mui/material/Button'
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
 import { useState } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -9,6 +9,7 @@ import axios from 'axios'
 import './Login.css'
 
 const Login = () => {
+    const [message, setMessage] = useState('')
     // const initialVal = {
     //     email: '',
     //     password: '',
@@ -62,15 +63,19 @@ const Login = () => {
             password: yup.string().required('Required'),
         }),
         onSubmit: values => {
-
-            console.log(values)
+            axios.post('http://localhost:5000/register/login', values)
+                .then(res => {
+                    setMessage(res.data.msg)
+                })
+                .catch(e => console.log(e))
+            // console.log(values)
         }
     })
 
     return (
         <>
             <h1>Login Page</h1>
-
+            {message ? <div style={{color: 'yellow'}}>{ message }</div> : ''}
             <div className='formContainer'>
                 {/* <Box
                 onSubmit={handleSubmit}
@@ -123,7 +128,7 @@ const Login = () => {
                             value={formik.values.email}
                         />
                     </div>
-                    {formik.touched.email && formik.errors.email ? <div>{ formik.errors.email }</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red'}}>{ formik.errors.email }</div> : null}
                     <div>
                         <input
                             name="password"
@@ -134,7 +139,7 @@ const Login = () => {
                             value={formik.values.password}
                             />
                     </div>
-                    {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     <button type='submit'>LOGIN</button>
                 </form>
             </div>

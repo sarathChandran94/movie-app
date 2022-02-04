@@ -1,8 +1,11 @@
 import { useFormik } from "formik";
 import * as yup from 'yup';
 import axios from 'axios'
+import { useState } from "react";
 
 const Register = () => {
+    const [user, setUser] = useState('')
+    var response = ""
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -16,14 +19,19 @@ const Register = () => {
         }),
         onSubmit: values => {
             axios.post('http://localhost:5000/register/newuser', values)
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    response = res.data.msg;
+                    setUser(response)
+                    console.log(response)
+                })
                 .catch(e => console.log(e))
-            console.log(values)
         }
     })
     return (
         <>
             <h1>Register page</h1>
+            {user ? <div style={{ color: 'yellow' }}> {user} </div> : "" }
             <form onSubmit={formik.handleSubmit}>
                     <div>
                         <input
@@ -46,7 +54,7 @@ const Register = () => {
                             value={formik.values.email}
                         />
                     </div>
-                    {formik.touched.email && formik.errors.email ? <div>{ formik.errors.email }</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red'}}>{ formik.errors.email }</div> : null}
                     <div>
                         <input
                             name="password"
@@ -57,7 +65,7 @@ const Register = () => {
                             value={formik.values.password}
                             />
                     </div>
-                    {formik.touched.password && formik.errors.password ? <div>{formik.errors.password}</div> : null}
+                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     <button type='submit'>SIGN UP</button>
                 </form>
         </>
