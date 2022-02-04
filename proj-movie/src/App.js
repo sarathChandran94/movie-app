@@ -8,6 +8,7 @@ import Login from './components/login/Login';
 import MyNavbar from './components/nav/Navbar';
 import Register from './components/register/Register';
 import Search from './components/search/Search';
+import Admin from './components/admin/Admin';
 
 
 
@@ -26,6 +27,7 @@ function App() {
                         <Route path="/favourite" element={<Favourite />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+                        <Route path="/admin" element={<Admin />} />
                     </Routes>
                 </div>
             </div>
