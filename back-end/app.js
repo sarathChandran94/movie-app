@@ -21,6 +21,6 @@ app.get("/", (req, res) => {
 
 const port = process.env.PORT ;
 app.listen(port, () => {
-    database;
+    database();
     console.log(`Connected to port: ${port}`);
 })
