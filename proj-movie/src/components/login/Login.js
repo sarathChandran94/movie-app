@@ -8,9 +8,11 @@ import * as yup from 'yup';
 import axios from 'axios'
 import './Login.css'
 import { useNavigate } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 
 const Login = () => {
     const [message, setMessage] = useState('')
+    const [show, setShow] = useState(false)
     const navigate = useNavigate()
     // const initialVal = {
     //     email: '',
@@ -68,6 +70,7 @@ const Login = () => {
             axios.post('http://localhost:5000/register/login', values)
                 .then(res => {
                     setMessage(res.data.msg)
+                    setShow(true)
                     console.log(res.data.user.role)
                     if (res.data.user.role === 'Admin') {
                         navigate('/admin')
@@ -84,7 +87,6 @@ const Login = () => {
     return (
         <>
             <h1>Login Page</h1>
-            {message ? <div style={{color: 'yellow'}}>{ message }</div> : ''}
             <div className='formContainer'>
                 {/* <Box
                 onSubmit={handleSubmit}
@@ -98,8 +100,8 @@ const Login = () => {
                 >
                 <div >
 
-                        <TextField
-                        required
+                <TextField
+                required
                         error={isEmailInvalid}
                         onChange={handleChange}
                         helperText={emailHelper}
@@ -107,8 +109,8 @@ const Login = () => {
                         type='text'
                         label="Email"
                         />
-                </div>
-                <div>
+                        </div>
+                        <div>
 
                         <TextField
                         required
@@ -121,12 +123,24 @@ const Login = () => {
                         label="Password"
                         />
 
-                </div>
-                    <Button type='submit' variant="contained" color={btnColor}>LOGIN</Button>
-                </Box> */}
+                        </div>
+                        <Button type='submit' variant="contained" color={btnColor}>LOGIN</Button>
+                    </Box> */}
 
 
                 <form onSubmit={formik.handleSubmit}>
+                <p>LOGIN</p>
+                    <div>
+                        {
+                            show ?
+
+                                <Alert variant="warning" onClose={() => setShow(false)} dismissible>
+                                    {message ? <div>{ message }</div> : ''}
+                                </Alert>
+                                :
+                                <div></div>
+                        }
+                    </div>
                     <div>
                         <input
                             name="email"

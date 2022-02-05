@@ -2,9 +2,16 @@ import { useFormik } from "formik";
 import * as yup from 'yup';
 import axios from 'axios'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import './Register.css'
+import { Alert, OverlayTrigger, Popover } from "react-bootstrap";
 
 const Register = () => {
+
+
+    const navigate = useNavigate()
     const [user, setUser] = useState('')
+    const [show, setShow] = useState(false)
     var response = ""
     const formik = useFormik({
         initialValues: {
@@ -23,16 +30,36 @@ const Register = () => {
                     console.log(res);
                     response = res.data.msg;
                     setUser(response)
+                    setShow(true)
+
                     console.log(response)
+                    if (response === 'user added successfully' ) {
+                        setInterval(() => {
+                            navigate('/login')
+                        }, 1000);
+                    }
                 })
                 .catch(e => console.log(e))
         }
     })
+    // console.log(`const user = ${user}`)
     return (
         <>
             <h1>Register page</h1>
-            {user ? <div style={{ color: 'yellow' }}> {user} </div> : "" }
-            <form onSubmit={formik.handleSubmit}>
+            <div className='registerCard'>
+                <form onSubmit={formik.handleSubmit}>
+                    <p>CREATE NEW ACCOUNT</p>
+                    <div>
+                        {
+                            show ?
+
+                                <Alert variant="warning" onClose={() => setShow(false)} dismissible>
+                                        {user ? <div> {user} </div> : ""}
+                                </Alert>
+                                :
+                                <div></div>
+                        }
+                        </div>
                     <div>
                         <input
                             name="username"
@@ -43,7 +70,7 @@ const Register = () => {
                             value={formik.values.username}
                         />
                     </div>
-                    {formik.touched.username && formik.errors.username ? <div style={{color: 'red'}}>{ formik.errors.username }</div> : null}
+                    {formik.touched.username && formik.errors.username ? <div style={{color: 'red', paddingBottom: '5px'}}>{ formik.errors.username }</div> : null}
                     <div>
                         <input
                             name="email"
@@ -54,7 +81,7 @@ const Register = () => {
                             value={formik.values.email}
                         />
                     </div>
-                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red'}}>{ formik.errors.email }</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red', paddingBottom: '5px'}}>{ formik.errors.email }</div> : null}
                     <div>
                         <input
                             name="password"
@@ -65,9 +92,10 @@ const Register = () => {
                             value={formik.values.password}
                             />
                     </div>
-                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red', paddingBottom: '5px'}}>{formik.errors.password}</div> : null}
                     <button type='submit'>SIGN UP</button>
                 </form>
+            </div>
         </>
     );
 }
