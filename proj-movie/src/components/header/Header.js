@@ -14,8 +14,8 @@ const Header = () => {
                     <Navbar.Text className='brandName' >PROJ-MOVIES</Navbar.Text>
                 </Container>
                 <Navbar.Brand >
-                    <Button  variant="info"><NavLink className='btns' to='/login'>LOGIN</NavLink></Button>{ ' ' }
-                    <Button variant="info"><NavLink className='btns' to='/register'>REGISTER</NavLink></Button>
+                    <NavLink  to='/login'><Button className='btns' variant="info">LOGIN</Button></NavLink>{ ' ' }
+                    <NavLink  to='/register'><Button className='btns' variant="info">REGISTER</Button></NavLink>
                 </Navbar.Brand>
             </Navbar>
 
