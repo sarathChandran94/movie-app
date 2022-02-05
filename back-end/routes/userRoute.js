@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
             res.send({ msg: 'user not found', error: err })
         }
         else if (result.email === usrMail && result.password !== req.body.password) {
-            res.send({ msg: 'password incorrect', user: result })
+            res.send({ msg: 'password incorrect', error: err })
         }
         else if (result.email === usrMail && result.password === req.body.password) {
             res.send({ msg: 'Logged in', user: result })
