@@ -1,0 +1,49 @@
+.registerCard {
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    padding: 10px 10px 10px 10px;
+    background: linear-gradient(grey,lightgrey);
+    width: 15rem;
+    border: 1px solid green;
+    border-radius: 7px;
+    transition: 0.1s;
+}
+
+form:hover {
+    background: linear-gradient(slategrey,grey);
+}
+
+form p {
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: darkslategray 0px 1px 2px;
+}
+
+form input, form button {
+    margin: 5px 0px;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: black 1px 2px 5px;
+    transition: 0.1s;
+}
+
+form input:focus {
+    outline: solid 2px lightseagreen;
+    box-shadow: black 2px 2px 5px;
+}
+
+form button {
+    background-color: blue;
+    color: khaki;
+    opacity: 0.6;
+    /* transition: 0.2s; */
+}
+
+form button:hover {
+    opacity: 1;
+    box-shadow: black 2px 2px 8px;
+}
