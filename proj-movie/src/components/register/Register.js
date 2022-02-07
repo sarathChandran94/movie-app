@@ -2,9 +2,9 @@ import { useFormik } from "formik";
 import * as yup from 'yup';
 import axios from 'axios'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Register.css'
-import { Alert, OverlayTrigger, Popover } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 
 const Register = () => {
 
@@ -12,6 +12,7 @@ const Register = () => {
     const navigate = useNavigate()
     const [user, setUser] = useState('')
     const [show, setShow] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     var response = ""
     const formik = useFormik({
         initialValues: {
@@ -25,12 +26,14 @@ const Register = () => {
             password: yup.string().required('Required'),
         }),
         onSubmit: values => {
+            setIsLoading(true)
             axios.post('http://localhost:5000/register/newuser', values)
                 .then(res => {
                     console.log(res);
                     response = res.data.msg;
                     setUser(response)
                     setShow(true)
+                    setIsLoading(false)
 
                     console.log(response)
                     if (response === 'user added successfully' ) {
@@ -39,7 +42,12 @@ const Register = () => {
                         }, 1000);
                     }
                 })
-                .catch(e => console.log(e))
+                .catch(e => {
+                    setUser(e.message)
+                    setIsLoading(false)
+                    setShow(true)
+                    console.log(e)
+                })
         }
     })
     // console.log(`const user = ${user}`)
@@ -49,6 +57,7 @@ const Register = () => {
             <div className='registerCard'>
                 <form onSubmit={formik.handleSubmit}>
                     <p>CREATE NEW ACCOUNT</p>
+                    { isLoading &&  (<div><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
                     <div>
                         {
                             show ?
@@ -70,7 +79,7 @@ const Register = () => {
                             value={formik.values.username}
                         />
                     </div>
-                    {formik.touched.username && formik.errors.username ? <div style={{color: 'red', paddingBottom: '5px'}}>{ formik.errors.username }</div> : null}
+                    {formik.touched.username && formik.errors.username ? <div style={{color: 'darkred', paddingBottom: '5px'}}>{ formik.errors.username }</div> : null}
                     <div>
                         <input
                             name="email"
@@ -81,7 +90,7 @@ const Register = () => {
                             value={formik.values.email}
                         />
                     </div>
-                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red', paddingBottom: '5px'}}>{ formik.errors.email }</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div style={{color: 'darkred', paddingBottom: '5px'}}>{ formik.errors.email }</div> : null}
                     <div>
                         <input
                             name="password"
@@ -92,8 +101,9 @@ const Register = () => {
                             value={formik.values.password}
                             />
                     </div>
-                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red', paddingBottom: '5px'}}>{formik.errors.password}</div> : null}
+                    {formik.touched.password && formik.errors.password ? <div style={{color: 'darkred', paddingBottom: '5px'}}>{formik.errors.password}</div> : null}
                     <button type='submit'>SIGN UP</button>
+                    <div><p>Already registered? <Link to='/login'>LOGIN</Link></p></div>
                 </form>
             </div>
         </>

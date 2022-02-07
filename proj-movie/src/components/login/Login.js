@@ -7,12 +7,13 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios'
 import './Login.css'
-import { useNavigate } from "react-router-dom";
-import { Alert } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert, Spinner } from "react-bootstrap";
 
 const Login = () => {
     const [message, setMessage] = useState('')
     const [show, setShow] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
     // const initialVal = {
     //     email: '',
@@ -67,10 +68,12 @@ const Login = () => {
             password: yup.string().required('Required'),
         }),
         onSubmit: values => {
+            setIsLoading(true);
             axios.post('http://localhost:5000/register/login', values)
                 .then(res => {
                     setMessage(res.data.msg)
                     setShow(true)
+                    setIsLoading(false);
                     console.log(res.data.user.role)
                     if (res.data.user.role === 'Admin') {
                         navigate('/admin')
@@ -79,7 +82,12 @@ const Login = () => {
                         navigate('/')
                     }
                 })
-                .catch(e => console.log(e))
+                .catch(e => {
+                    setIsLoading(false);
+                    setMessage(e.message);
+                    setShow(true)
+                    console.log(e.message)
+                })
             // console.log(values)
         }
     })
@@ -129,7 +137,8 @@ const Login = () => {
 
 
                 <form onSubmit={formik.handleSubmit}>
-                <p>LOGIN</p>
+                    <p>LOGIN</p>
+                    {isLoading && (<div><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
                     <div>
                         {
                             show ?
@@ -151,7 +160,7 @@ const Login = () => {
                             value={formik.values.email}
                         />
                     </div>
-                    {formik.touched.email && formik.errors.email ? <div style={{color: 'red'}}>{ formik.errors.email }</div> : null}
+                    {formik.touched.email && formik.errors.email ? <div style={{color: 'darkred'}}>{ formik.errors.email }</div> : null}
                     <div>
                         <input
                             name="password"
@@ -162,8 +171,9 @@ const Login = () => {
                             value={formik.values.password}
                             />
                     </div>
-                    {formik.touched.password && formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    {formik.touched.password && formik.errors.password ? <div style={{color: 'darkred'}}>{formik.errors.password}</div> : null}
                     <button type='submit'>LOGIN</button>
+                    <div><p>Don't have an account? <Link to='/register'>REGISTER HERE</Link></p></div>
                 </form>
             </div>
         </>

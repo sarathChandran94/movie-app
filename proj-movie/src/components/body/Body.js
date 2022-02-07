@@ -41,17 +41,18 @@ const Body = () => {
 
     const getCat = () => {
         // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
-        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=17e786d5aa65a489c613aaca6427cd5e").then(res => {
-            // console.log(res.data)
-            setCat(res.data.genres)
-        }).catch(e => console.log(e))
+        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=17e786d5aa65a489c613aaca6427cd5e")
+            .then(res => {
+                // console.log(res.data)
+                setCat(res.data.genres)
+            })
+            .catch(e => console.log(e))
     }
 
     const movieClicked = (item) => {
         setSmd(item)
         setIsMovieClicked(false)
     }
-
     return (
         <Context.Provider value={{Data:[fav,setFav]}}>
             <div>
