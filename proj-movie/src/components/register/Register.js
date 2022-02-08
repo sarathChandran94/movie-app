@@ -57,7 +57,7 @@ const Register = () => {
             <div className='registerCard'>
                 <form onSubmit={formik.handleSubmit}>
                     <p>CREATE NEW ACCOUNT</p>
-                    { isLoading &&  (<div><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
+                    { isLoading &&  (<div className='loadAnimation'><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
                     <div>
                         {
                             show ?
