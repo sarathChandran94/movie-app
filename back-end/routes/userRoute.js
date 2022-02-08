@@ -38,7 +38,11 @@ router.post('/newuser', (req, res) => {
 router.post('/login', (req, res) => {
     const usrMail = req.body.email;
     user.findOne({ email: usrMail }, (err, result) => {
-        if (result === null) {
+        if (result === undefined) {
+            console.log(`some error occured!`)
+            res.status(500).send({msg: 'some error occured', error: err})
+        }
+        else if (result === null) {
             res.send({ msg: 'user not found', error: err })
         }
         else if (result.email === usrMail && result.password !== req.body.password) {
