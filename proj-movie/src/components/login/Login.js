@@ -138,7 +138,7 @@ const Login = () => {
 
                 <form onSubmit={formik.handleSubmit}>
                     <p>LOGIN</p>
-                    {isLoading && (<div><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
+                    {isLoading && (<div className='loadAnimation'><Spinner animation="border" variant="success" /><span>Contacting server...</span></div>)}
                     <div>
                         {
                             show ?
