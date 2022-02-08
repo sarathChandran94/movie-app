@@ -8,10 +8,11 @@ const Categories = (props) => {
     const clickHandle = (id,name) => {
         console.log(id)
         props.setCatSel(name)
-        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=17e786d5aa65a489c613aaca6427cd5e&include_adult=false&with_genres=${id}`).then(res => {
-            console.log(res.data.results)
-            props.setMov(res.data.results)
-        })
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=17e786d5aa65a489c613aaca6427cd5e&include_adult=false&with_genres=${id}`)
+            .then(res => {
+                console.log(res.data.results)
+                props.setMov(res.data.results)
+            }).catch(e => console.log(e))
     }
 
     return (
