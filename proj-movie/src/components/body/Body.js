@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Categories from "../categorieList/Categories";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Tooltip } from "@mui/material";
 import SingleMoviePage from "../singleMovie/SingleMovie";
 import './Body.css'
 
@@ -18,6 +18,7 @@ const Body = () => {
     const [fav, setFav] = useState([])
     const [isMovieClicked, setIsMovieClicked] = useState(true)
     const [smd, setSmd] = useState(true)
+    const [favSelected, setFavSelected] = useState('Add to favourites')
 
     useEffect(() => {
         getMov()
@@ -26,17 +27,20 @@ const Body = () => {
 
     const getMov = () => {
         // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
-        axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e").then(res => {
-            console.log(res.data.results)
-            setMov(res.data.results)
-        }).catch(e => console.log(e))
+        axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e")
+            .then(res => {
+                console.log(res.data.results)
+                setMov(res.data.results)
+            })
+            .catch(e => console.log(e))
     }
 
     const handleClick = (item) => {
         // console.log(item)
         setFav([...fav, item])
+        // console.log(fav)
+        localStorage.setItem('fMov', JSON.stringify(fav))
     }
-    // console.log(fav)
 
 
     const getCat = () => {
@@ -51,6 +55,7 @@ const Body = () => {
 
     const movieClicked = (item) => {
         setSmd(item)
+        setFavSelected('Added!')
         setIsMovieClicked(false)
     }
     return (
@@ -79,7 +84,9 @@ const Body = () => {
                                                         <Card.Img onClick={() => movieClicked(v.id)} style={{height: '300px'}} variant="top" src={`https://image.tmdb.org/t/p/w300/${v.poster_path}`} />
                                                         <Row>
                                                             <Col className='m-2'>
+                                                                <Tooltip title={ favSelected } placement="top">
                                                                 <Card.Text><ThumbUpIcon  onClick={() => handleClick([v])} /></Card.Text>
+                                                            </Tooltip>
                                                             </Col>
                                                             <Col className='m-2'>
                                                                 <CircularProgress variant="determinate" value={v.vote_average * 10} />
