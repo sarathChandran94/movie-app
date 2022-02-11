@@ -22,12 +22,12 @@ const Admin = () => {
 
         }, [])
         console.log(users)
-    const createData = (username, email, type, date_joined) => {
-        return {username, email, type, date_joined};
+    const createData = (username, email, password, type, date_joined) => {
+        return {username, email, password, type, date_joined};
     }
     const rows = [
         users.map((user) => {
-            return createData(user.username, user.email, user.role, user.joined)
+            return createData(user.username, user.email,user.password, user.role, user.joined)
         }),
     //   createData('testuse2', 'email2', 'type2', 'date2'),
     //   createData('testuser3', 'email3', 'type3', 'date3'),
@@ -45,6 +45,7 @@ const Admin = () => {
                     <TableRow>
                         <TableCell>Username</TableCell>
                         <TableCell align="right">Email</TableCell>
+                        <TableCell align="right">Password</TableCell>
                         <TableCell align="right">Account Type</TableCell>
                         <TableCell align="right">Date Joined</TableCell>
                     </TableRow>
@@ -59,6 +60,7 @@ const Admin = () => {
                             {row.username}
                         </TableCell>
                         <TableCell align="right">{row.email}</TableCell>
+                        <TableCell align="right">{row.password}</TableCell>
                         <TableCell align="right">{row.type}</TableCell>
                         <TableCell align="right">{row.date_joined}</TableCell>
                         </TableRow>
