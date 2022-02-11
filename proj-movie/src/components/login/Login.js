@@ -74,7 +74,7 @@ const Login = () => {
                     setMessage(res.data.msg)
                     setShow(true)
                     setIsLoading(false);
-                    console.log(res.data.user.role)
+                    console.log(res.data)
                     if (res.data.user.role === 'Admin') {
                         navigate('/admin')
                     }

@@ -63,7 +63,7 @@ const Register = () => {
                             show ?
 
                                 <Alert variant="warning" onClose={() => setShow(false)} dismissible>
-                                        {user ? <div> {user} </div> : ""}
+                                        {user ? <div>{user}</div> : ""}
                                 </Alert>
                                 :
                                 <div></div>
