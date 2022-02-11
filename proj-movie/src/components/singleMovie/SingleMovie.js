@@ -10,16 +10,16 @@ const SingleMoviePage = (props) => {
 
     const navigate = useNavigate()
 
-    const getSmd = () => {
-        axios.get(`https://api.themoviedb.org/3/movie/${props.value}?api_key=17e786d5aa65a489c613aaca6427cd5e&language=en-US`)
-            .then(res => {
-                console.log(res)
-                setSmd(res.data)
-            })
-    }
     useEffect(() => {
+        const getSmd = () => {
+            axios.get(`https://api.themoviedb.org/3/movie/${props.value}?api_key=17e786d5aa65a489c613aaca6427cd5e&language=en-US`)
+                .then(res => {
+                    console.log(res)
+                    setSmd(res.data)
+                })
+        }
         getSmd();
-    },[])
+    },[props.value])
 
     return (
         <>
