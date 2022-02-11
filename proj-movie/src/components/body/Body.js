@@ -21,19 +21,30 @@ const Body = () => {
     const [favSelected, setFavSelected] = useState('Add to favourites')
 
     useEffect(() => {
+        console.log('rendered');
+        const getMov = () => {
+            // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
+            axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e")
+                .then(res => {
+                    console.log(res.data.results)
+                    setMov(res.data.results)
+                })
+                .catch(e => console.log(e))
+        }
+
+        const getCat = () => {
+            // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
+            axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=17e786d5aa65a489c613aaca6427cd5e")
+                .then(res => {
+                    // console.log(res.data)
+                    setCat(res.data.genres)
+                })
+                .catch(e => console.log(e))
+        }
         getMov()
         getCat()
     }, []);
 
-    const getMov = () => {
-        // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
-        axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e")
-            .then(res => {
-                console.log(res.data.results)
-                setMov(res.data.results)
-            })
-            .catch(e => console.log(e))
-    }
 
     const handleClick = (item) => {
         // console.log(item)
@@ -43,15 +54,6 @@ const Body = () => {
     }
 
 
-    const getCat = () => {
-        // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
-        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=17e786d5aa65a489c613aaca6427cd5e")
-            .then(res => {
-                // console.log(res.data)
-                setCat(res.data.genres)
-            })
-            .catch(e => console.log(e))
-    }
 
     const movieClicked = (item) => {
         setSmd(item)
