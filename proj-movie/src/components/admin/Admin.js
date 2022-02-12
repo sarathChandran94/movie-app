@@ -14,10 +14,10 @@ const Admin = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/register/admin')
+        axios.get('http://localhost:5000/register/admin', { headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNjIwNzQxZmIwNTc3NjljODhhNjQzNGU0IiwiaWF0IjoxNjQ0NjY0NjYyfQ.Xh4tRZX_jp3qrEX9O9-OQKXuXh4siVCTXYtwRQlGLMc'}})
             .then((res) => {
+                console.log(res.data)
                 setUsers(res.data.result)
-                // console.log(res.data)
             }).catch(e => console.log(e))
 
         }, [])
