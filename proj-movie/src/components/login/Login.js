@@ -74,9 +74,9 @@ const Login = () => {
                     setMessage(res.data.msg)
                     setShow(true)
                     setIsLoading(false);
-                    console.log(res.data)
+                    console.log(`${res.data.msg}: ${res.data.user.username}`)
                     if (res.data.user.role === 'Admin') {
-                        navigate('/admin')
+                        navigate('/admin', {state:res.data.token})
                     }
                     if (res.data.user.role === 'User') {
                         navigate('/')

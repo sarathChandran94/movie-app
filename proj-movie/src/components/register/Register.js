@@ -13,7 +13,7 @@ const Register = () => {
     const [user, setUser] = useState('')
     const [show, setShow] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    var response = ""
+    var responseMsg = ""
     const formik = useFormik({
         initialValues: {
             username: '',
@@ -29,14 +29,14 @@ const Register = () => {
             setIsLoading(true)
             axios.post('http://localhost:5000/register/newuser', values)
                 .then(res => {
-                    console.log(res);
-                    response = res.data.msg;
-                    setUser(response)
+                    console.log(`newUser: ${res.data.user.username}`);
+                    responseMsg = res.data.msg;
+                    setUser(responseMsg)
                     setShow(true)
                     setIsLoading(false)
 
-                    console.log(response)
-                    if (response === 'user added successfully' ) {
+                    console.log(`responseMsg: ${responseMsg}`)
+                    if (responseMsg === 'Registration successfull!' ) {
                         setInterval(() => {
                             navigate('/login')
                         }, 1000);
@@ -46,7 +46,7 @@ const Register = () => {
                     setUser(e.message)
                     setIsLoading(false)
                     setShow(true)
-                    console.log(e)
+                    console.log(`new user error: ${e}`)
                 })
         }
     })
