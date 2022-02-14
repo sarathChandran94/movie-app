@@ -7,14 +7,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 
 const Admin = () => {
 
     const [users, setUsers] = useState([]);
+    let location = useLocation()
+    console.log(location)
 
     useEffect(() => {
-        axios.get('http://localhost:5000/register/admin', { headers: { 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoiNjIwNzQxZmIwNTc3NjljODhhNjQzNGU0IiwiaWF0IjoxNjQ0NjY0NjYyfQ.Xh4tRZX_jp3qrEX9O9-OQKXuXh4siVCTXYtwRQlGLMc'}})
+        axios.get('http://localhost:5000/register/admin', { headers: { 'Authorization': `Bearer ${location.state}`}})
             .then((res) => {
                 console.log(res.data)
                 setUsers(res.data.result)
@@ -44,10 +47,10 @@ const Admin = () => {
                     <TableHead>
                     <TableRow>
                         <TableCell>Username</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Password</TableCell>
-                        <TableCell align="right">Account Type</TableCell>
-                        <TableCell align="right">Date Joined</TableCell>
+                        <TableCell align="center">Email</TableCell>
+                        <TableCell align="center">Password</TableCell>
+                        <TableCell align="center">Account Type</TableCell>
+                        <TableCell align="center">Date Joined</TableCell>
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -59,10 +62,10 @@ const Admin = () => {
                         <TableCell component="th" scope="row">
                             {row.username}
                         </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.password}</TableCell>
-                        <TableCell align="right">{row.type}</TableCell>
-                        <TableCell align="right">{row.date_joined}</TableCell>
+                        <TableCell align="center">{row.email}</TableCell>
+                        <TableCell align="center">{row.password}</TableCell>
+                        <TableCell align="center">{row.type}</TableCell>
+                        <TableCell align="center">{row.date_joined}</TableCell>
                         </TableRow>
                     ))}
                     </TableBody>
