@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import Categories from "../categorieList/Categories";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import { CircularProgress, Tooltip } from "@mui/material";
@@ -19,9 +19,9 @@ const Body = () => {
     const [isMovieClicked, setIsMovieClicked] = useState(true)
     const [smd, setSmd] = useState(true)
     const [favSelected, setFavSelected] = useState('Add to favourites')
+    const [favBtnClr, setFavBtnClr] = useState('warning')
 
     useEffect(() => {
-        console.log('rendered');
         const getMov = () => {
             // axios.get("https://imdb-api.com/en/API/MostPopularMovies/k_eomu4lvb").then(res => {
             axios.get("https://api.themoviedb.org/3/trending/all/day?api_key=17e786d5aa65a489c613aaca6427cd5e")
@@ -47,9 +47,10 @@ const Body = () => {
 
 
     const handleClick = (item) => {
-        // console.log(item)
         setFav([...fav, item])
-        // console.log(fav)
+        console.log(fav)
+        setFavBtnClr('success')
+        // storing to local storage
         localStorage.setItem('fMov', JSON.stringify(fav))
     }
 
@@ -57,7 +58,6 @@ const Body = () => {
 
     const movieClicked = (item) => {
         setSmd(item)
-        setFavSelected('Added!')
         setIsMovieClicked(false)
     }
     return (
@@ -81,13 +81,13 @@ const Body = () => {
                                     {
                                         mov.map((v, i) => {
                                             return (
-                                                <Col key={v.id} >
-                                                    <Card style={{height: '450px'}} className="movieCard m-3">
+                                                <Col key={i}>
+                                                    <Card key={i} style={{height: '450px'}} className="movieCard m-3">
                                                         <Card.Img onClick={() => movieClicked(v.id)} style={{height: '300px'}} variant="top" src={`https://image.tmdb.org/t/p/w300/${v.poster_path}`} />
                                                         <Row>
                                                             <Col className='m-2'>
                                                                 <Tooltip title={ favSelected } placement="top">
-                                                                <Card.Text><ThumbUpIcon  onClick={() => handleClick([v])} /></Card.Text>
+                                                                    <Card.Text><Button variant={ favBtnClr } size="sm" onClick={() => handleClick(v)} value={JSON.stringify(v)} ><ThumbUpIcon  /></Button></Card.Text>
                                                             </Tooltip>
                                                             </Col>
                                                             <Col className='m-2'>

@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import { useState,useEffect } from "react"
 
 import '../body/Body.css'
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { CircularProgress } from '@material-ui/core';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
@@ -41,7 +41,7 @@ const Favourite = () => {
                                             <Card.Img style={{height: '300px'}} variant="top" src={`https://image.tmdb.org/t/p/w300/${v[0].poster_path}`} />
                                             <Row>
                                                 <Col className='m-2'>
-                                                    <Card.Text><RemoveCircleOutlineIcon  onClick={() => handleClick(i)} />Remove</Card.Text>
+                                                    <Button variant='danger' size='sm' onClick={() => handleClick(i)}><span><RemoveCircleOutlineIcon /></span>Remove</Button>
                                                 </Col>
                                                 <Col className='m-2'>
                                                     <CircularProgress variant="determinate" value={v[0].vote_average * 10} />

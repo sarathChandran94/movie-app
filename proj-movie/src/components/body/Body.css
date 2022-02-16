@@ -31,3 +31,8 @@
 .heading {
     color: lightgoldenrodyellow;
 }
+
+.favButton:active {
+    background-color: green;
+
+}

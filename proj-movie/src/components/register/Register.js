@@ -29,7 +29,6 @@ const Register = () => {
             setIsLoading(true)
             axios.post('http://localhost:5000/register/newuser', values)
                 .then(res => {
-                    console.log(`newUser: ${res.data.user.username}`);
                     responseMsg = res.data.msg;
                     setUser(responseMsg)
                     setShow(true)
@@ -37,6 +36,7 @@ const Register = () => {
 
                     console.log(`responseMsg: ${responseMsg}`)
                     if (responseMsg === 'Registration successfull!' ) {
+                        console.log(`newUser: ${res.data.user.username}`);
                         setInterval(() => {
                             navigate('/login')
                         }, 1000);
