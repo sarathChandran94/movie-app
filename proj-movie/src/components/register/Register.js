@@ -37,9 +37,10 @@ const Register = () => {
                     console.log(`responseMsg: ${responseMsg}`)
                     if (responseMsg === 'Registration successfull!' ) {
                         console.log(`newUser: ${res.data.user.username}`);
-                        setInterval(() => {
+                        setTimeout(() => {
                             navigate('/login')
                         }, 1000);
+                        // clearInterval();
                     }
                 })
                 .catch(e => {
