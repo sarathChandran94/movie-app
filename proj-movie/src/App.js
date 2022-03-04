@@ -9,6 +9,7 @@ import MyNavbar from './components/nav/Navbar';
 import Register from './components/register/Register';
 import Search from './components/search/Search';
 import Admin from './components/admin/Admin';
+import { ItemContext }  from "./context/Context";
 
 
 
@@ -16,21 +17,23 @@ function App() {
 
     return (
         <>
-            <div className='App' >
-                <div className='bodyBg'>
-                    <div className='background'></div>
-                    <Header />
-                    <MyNavbar />
-                    <Routes>
-                        <Route path='*' element={<Body />} />
-                        <Route path="/search" element={<Search />} />
-                        <Route path="/favourite" element={<Favourite />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/admin" element={<Admin />} />
-                    </Routes>
+            <ItemContext>
+                <div className='App' >
+                    <div className='bodyBg'>
+                        <div className='background'></div>
+                        <Header />
+                        <MyNavbar />
+                        <Routes>
+                            <Route path='*' element={<Body />} />
+                            <Route path="/search" element={<Search />} />
+                            <Route path="/favourite" element={<Favourite />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/register" element={<Register />} />
+                            <Route path="/admin" element={<Admin />} />
+                        </Routes>
+                    </div>
                 </div>
-            </div>
+            </ItemContext>
             {/* <Footer /> */}
         </>
     );

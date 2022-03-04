@@ -12,7 +12,10 @@ const Search = () => {
     const [searchText, setSearchText] = useState('')
     const [searchData, setSearchData] = useState([])
 
-    const getSearchData = () => {
+    // const getSearchData = () => {
+
+    // }
+    useEffect(() => {
         axios.get(`https://api.tmdb.org/3/search/movie/?api_key=17e786d5aa65a489c613aaca6427cd5e&adult=false&query=${searchText}`)
             .then(res => {
                 console.log(res.data.results)
@@ -21,17 +24,11 @@ const Search = () => {
             .catch(e => {
                 console.log(e)
             })
-    }
-    useEffect(() => {
-        getSearchData()
     },[searchText])
 
     return (
         <>
-            <div className='bodyBg'>
-                <div className='background'>
-
-                </div>
+            <div>
                 <div className='foreground'>
                 <Container className="heading">
                     <h1>Search</h1>

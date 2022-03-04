@@ -6,7 +6,7 @@ const database = () => {
     mongoose.connect(Db, { useNewUrlParser: true,useUnifiedTopology: true }, (err) => {
         if (err) {
             console.log(`error: database not connected`)
-            // throw err;
+            // throw new Error(err);
         }
         else if (!err) {
             console.log('Connected to database')

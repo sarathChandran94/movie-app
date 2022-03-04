@@ -4,9 +4,11 @@ import Tab from 'react-bootstrap/Tab';
 import './Categories.css'
 
 const Categories = (props) => {
+    // const [isActive, setIsActive] = useState(false)
+    // console.log(props)
 
-    const clickHandle = (id,name) => {
-        console.log(id)
+    const clickHandle = (e,id,name) => {
+        // console.log(e)
         props.setCatSel(name)
         axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=17e786d5aa65a489c613aaca6427cd5e&include_adult=false&with_genres=${id}`)
             .then(res => {
@@ -18,12 +20,12 @@ const Categories = (props) => {
     return (
         <>
             <Tab.Container className="pt-3"  id="left-tabs-example" defaultActiveKey="first">
-                <ListGroup >
+                <ListGroup>
                     {
-                        props.cat.map((v,i) => {
+                        props.cat.map(v => {
                             return (
-                                <ListGroup.Item action  onClick={() => clickHandle(v.id,v.name)} key={v.id} className="categoryButton m-1" variant="warning">
-                                    <h4>{v.name}</h4>
+                                <ListGroup.Item action onClick={(e) => clickHandle(e,v.id,v.name)} key={v.id} className="categoryButton m-1" variant="warning">
+                                    {v.name}
                                 </ListGroup.Item>
                             )
                         })

@@ -26,23 +26,23 @@ const SingleMoviePage = (props) => {
             <Container >
                 <Button onClick={() => {navigate(0)}} variant='danger dark'>Go Back</Button>
                 <Row className='m-5 bg-white rounded' >
-                    <Col className='p-2 rounded shadow' sm={4}>
-                        <img src={`https://image.tmdb.org/t/p/w300/${smd.poster_path}`} alt={smd.title}></img>
+                    <Col md={4}>
+                        <img className='m-2 rounded shadow' style={{height: '300px'}} src={`https://image.tmdb.org/t/p/w300/${smd.poster_path}`} alt={smd.title}></img>
                     </Col>
-                    <Col sm={8}>
-                        <Row className='p-2 border-bottom border-success shadow'>
+                    <Col md={8}>
+                        <Row className='m-2 border-bottom border-success shadow'>
                             <h1>{ smd.title }</h1>
                         </Row>
-                        <Row className='pt-3 border-bottom border-success shadow'>
-                            <Col>
+                        <Row className='m-2 pt-2 border-bottom border-success shadow'>
+                            <Col className='align-items-center'>
                                 <CircularProgress variant="determinate" value={smd.vote_average * 10} />
                                 <h5>{ smd.vote_average }</h5>
                             </Col>
-                            <Col className='align-items-center p-3'>
+                            <Col className='align-items-center'>
                                 <h5><span className='text-secondary'>Runtime: </span>{ smd.runtime } mins</h5>
                             </Col>
-                            <Col>
-                                <h5><span className='text-secondary'>Released on: </span>{ smd.release_date }</h5>
+                            <Col className='align-items-center'>
+                                <h5><span className='text-secondary'>Released on: </span>{ (smd.release_date) }</h5>
                             </Col>
                         </Row>
                         <Row>

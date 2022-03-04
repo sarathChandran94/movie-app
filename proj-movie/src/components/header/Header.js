@@ -15,7 +15,7 @@ const Header = () => {
                 </Container>
                 <Navbar.Brand >
                     <NavLink  to='/login'><Button className='btns' variant="info">LOGIN</Button></NavLink>{ ' ' }
-                    <NavLink  to='/register'><Button className='btns' variant="info">REGISTER</Button></NavLink>
+                    <NavLink  to='/register'><Button className='btns' variant="info">REGISTER</Button></NavLink>{ ' ' }
                 </Navbar.Brand>
             </Navbar>
 
