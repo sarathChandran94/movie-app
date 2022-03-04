@@ -1,62 +1,125 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { DataGrid } from '@mui/x-data-grid';
-import { Alert, Button, Snackbar } from '@mui/material';
+import { Alert, Button, Snackbar, Box, InputLabel, MenuItem, FormControl,Select } from '@mui/material';
 import { DeleteOutlineRounded } from '@material-ui/icons'
+import { EditRounded } from '@material-ui/icons';
+import Backdrop from '@mui/material/Backdrop';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
 
 
 const Admin = () => {
 
     const [users, setUsers] = useState([]);
     const [delMsg, setDelMsg] = useState('');
-    const [isDelMsg, setIsDelMsg] = useState(false);
+    const [editMsg, setEditMsg] = useState('');
+    const [editedId, setEditedId] = useState({})
+    const [editedRole, setEditedRole] = useState('')
+    const [isMsg, setIsMsg] = useState(false);
+    const [open, setOpen] = useState(false);
     let location = useLocation()
-    // console.log(location.state)
-
-
-
-    const myrows = [
-        users.map((user) => {
-            return {
-                id: user._id,
-                username: user.username,
-                email: user.email,
-                password: user.password,
-                role: user.role,
-                joined: user.joined
-            }
-        })
-    ];
-    console.log(myrows[0])
-
-    // const createData = (username, email, password, type, date_joined) => {
-    //     return {username, email, password, type, date_joined};
-    // }
-
-    // const rows = [
-    //     users.map((user) => {
-    //         return createData(user.username, user.email,user.password, user.role, user.joined)
-    //     }),
-    // ];
 
     const deleteHandler = (item) => {
         console.log(item)
-        axios.post(`http://localhost:5000/register/admin/${item}`)
+        axios.post(`http://localhost:5000/register/admin/deleteUser/${item}`)
             .then(res => {
-                setIsDelMsg(true)
+                setIsMsg(true)
                 setDelMsg(res.data.msg)
                 console.log(res)
             })
             .catch(e => console.log(e.message))
 
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        // setEditedRole(e.target.value)
+        // console.log(e)
+        // console.log(editedItem)
+        // console.log(editedRole)
+        axios.post(`http://localhost:5000/register/admin/editUser/${editedId.id}`, { role: e.target.value })
+            .then(result => {
+                // console.log(result)
+                setIsMsg(true)
+                setEditMsg(result.data.msg)
+            })
+            .catch(e => console.log(e))
+        setOpen(false)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const RoleModal = () => {
+        return (
+            <>
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 500,
+                        }}
+                    >
+                        <Fade in={open}>
+                            <Box sx={style}>
+                                <Box sx={{ minWidth: 120 }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value=''
+                                        label="Role"
+                                        onChange={handleChange}
+                                        >
+                                        <MenuItem value={'Admin'}>Admin</MenuItem>
+                                        <MenuItem value={'User'}>User</MenuItem>
+
+                                        </Select>
+                                    </FormControl>
+                                </Box>
+                            </Box>
+                        </Fade>
+                    </Modal>
+                </>
+        )
+    }
+
+    const editHandler = (item) => {
+        // console.log(item)
+        setEditedId(item)
+        setOpen(true)
+
+    }
+
+    const renderEditButton = (params) => {
+        return (
+            <Button
+                variant='contained'
+                size='small'
+                color='warning'
+                onClick={() => editHandler({ id: params.row.id }) }
+            ><EditRounded /></Button>
+        )
     }
 
     const renderDelButton = (params) => {
@@ -70,6 +133,19 @@ const Admin = () => {
             ><DeleteOutlineRounded /></Button>
         )
     }
+
+    const myrows = [
+        users.map((user) => {
+            return {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                password: user.password,
+                role: user.role,
+                joined: user.joined,
+            }
+        })
+    ];
 
     const columns = [
         {
@@ -103,23 +179,32 @@ const Admin = () => {
             disableClickEventBubbling: true,
         },
         {
+            field: 'editButton',
+            headerName: 'Edit',
+            renderCell: renderEditButton,
+            disableClickEventBubbling: true,
+
+        },
+        {
             field: 'delButton',
             headerName: 'Delete',
             renderCell: renderDelButton,
-            // disableClickEventBubbling: true,
+            disableClickEventBubbling: true,
 
         },
     ];
 
 
     useEffect(() => {
+        setEditedRole(editedRole)
+        console.log(editedRole)
         axios.get('http://localhost:5000/register/admin', { headers: { 'Authorization': `Bearer ${location.state}`}})
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setUsers(res.data.result)
                 // console.log(users)
             }).catch(e => console.log(e))
-    }, [isDelMsg])
+    }, [isMsg,editedRole])
 
 
 
@@ -127,54 +212,22 @@ const Admin = () => {
     return (
         <>
             <h1>Admin page</h1>
-            {/* <div>
-                <TableContainer  style={{backgroundColor: 'darkgray'}} component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Username</TableCell>
-                        <TableCell align="center">Email</TableCell>
-                        <TableCell align="center">Password</TableCell>
-                        <TableCell align="center">Account Type</TableCell>
-                        <TableCell align="center">Date Joined</TableCell>
-                        <TableCell align="center">Delete</TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {rows[0].map((row) => (
-                        <TableRow
-                        key={row.username}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell component="th" scope="row">
-                            {row.username}
-                        </TableCell>
-                        <TableCell align="center">{row.email}</TableCell>
-                        <TableCell align="center">{row.password}</TableCell>
-                        <TableCell align="center">{row.type}</TableCell>
-                        <TableCell align="center">{row.date_joined}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-                </TableContainer>
-
-            </div> */}
+            {open && <RoleModal />}
             <div>
                 <div style={{ height: 500, width: '100%' }}>
                     <DataGrid
                         style={{ backgroundColor: 'lightgray' }}
                         rows={myrows[0]}
                         columns={columns}
-                        // onCellClick={() => deleteHandler(myrows[0]._id)}
-                        // checkboxSelection
                     />
                 </div>
-                {isDelMsg &&
+                {isMsg &&
                     <>
-                        <Snackbar open={isDelMsg} onClose={() => { setIsDelMsg(false) }}>
+                        <Snackbar
+                            open={isMsg}
+                            onClose={() => { setIsMsg(false) }}>
                             <Alert >
-                                {delMsg}
+                                {delMsg || editMsg}
                             </Alert>
                         </Snackbar>
                     </>

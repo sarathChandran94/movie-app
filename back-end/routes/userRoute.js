@@ -131,5 +131,18 @@ router.post('/admin/:id', (req, res) => {
 })
 
 
+router.post('/admin/editUser/:id', (req, res) => {
+
+    console.log(req.body)
+    const role = req.body.role;
+    console.log(req.params)
+    user.findByIdAndUpdate(req.params.id, { role: role }, { upsert: true })
+        .then(result => {
+            res.send({msg: 'User successfully updated', result})
+        })
+        .catch(e => console.log(e))
+})
+
+
 
 module.exports = router;
